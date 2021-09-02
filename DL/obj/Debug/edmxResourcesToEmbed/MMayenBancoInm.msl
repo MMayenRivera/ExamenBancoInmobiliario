@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MMayenBancoInmobiliarioModelStoreContainer" CdmEntityContainer="MMayenBancoInmobiliarioEntities">
+    <EntitySetMapping Name="Amortizacions">
+      <EntityTypeMapping TypeName="MMayenBancoInmobiliarioModel.Amortizacion">
+        <MappingFragment StoreEntitySet="Amortizacion">
+          <ScalarProperty Name="SaldoInsoluto" ColumnName="SaldoInsoluto" />
+          <ScalarProperty Name="InteresPeriodo" ColumnName="InteresPeriodo" />
+          <ScalarProperty Name="CapitalAmortizado" ColumnName="CapitalAmortizado" />
+          <ScalarProperty Name="PagoMensual" ColumnName="PagoMensual" />
+          <ScalarProperty Name="NumeroCredito" ColumnName="NumeroCredito" />
+          <ScalarProperty Name="NumeroPago" ColumnName="NumeroPago" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="MMayenBancoInmobiliarioModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="NumeroCliente" ColumnName="NumeroCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Creditoes">
+      <EntityTypeMapping TypeName="MMayenBancoInmobiliarioModel.Credito">
+        <MappingFragment StoreEntitySet="Credito">
+          <ScalarProperty Name="NumeroCliente" ColumnName="NumeroCliente" />
+          <ScalarProperty Name="TasaAnual" ColumnName="TasaAnual" />
+          <ScalarProperty Name="Plazo" ColumnName="Plazo" />
+          <ScalarProperty Name="ImporteCredito" ColumnName="ImporteCredito" />
+          <ScalarProperty Name="NumeroCredito" ColumnName="NumeroCredito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ClienteAdd" FunctionName="MMayenBancoInmobiliarioModel.Store.ClienteAdd" />
+    <FunctionImportMapping FunctionImportName="ClienteDelete" FunctionName="MMayenBancoInmobiliarioModel.Store.ClienteDelete" />
+    <FunctionImportMapping FunctionImportName="ClienteGetById" FunctionName="MMayenBancoInmobiliarioModel.Store.ClienteGetById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MMayenBancoInmobiliarioModel.ClienteGetById_Result">
+          <ScalarProperty Name="NumeroPago" ColumnName="NumeroPago" />
+          <ScalarProperty Name="Numero_Credito" ColumnName="Numero Credito" />
+          <ScalarProperty Name="PagoMensual" ColumnName="PagoMensual" />
+          <ScalarProperty Name="CapitalAmortizado" ColumnName="CapitalAmortizado" />
+          <ScalarProperty Name="InteresPeriodo" ColumnName="InteresPeriodo" />
+          <ScalarProperty Name="SaldoInsoluto" ColumnName="SaldoInsoluto" />
+          <ScalarProperty Name="ImporteCredito" ColumnName="ImporteCredito" />
+          <ScalarProperty Name="Plazo" ColumnName="Plazo" />
+          <ScalarProperty Name="TasaAnual" ColumnName="TasaAnual" />
+          <ScalarProperty Name="NumeroCliente" ColumnName="NumeroCliente" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ClienteGetAll" FunctionName="MMayenBancoInmobiliarioModel.Store.ClienteGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MMayenBancoInmobiliarioModel.ClienteGetAll_Result">
+          <ScalarProperty Name="NumeroCliente" ColumnName="NumeroCliente" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+          <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="RFC" ColumnName="RFC" />
+          <ScalarProperty Name="NumeroCredito" ColumnName="NumeroCredito" />
+          <ScalarProperty Name="CapitalAmortizado" ColumnName="CapitalAmortizado" />
+          <ScalarProperty Name="InteresPeriodo" ColumnName="InteresPeriodo" />
+          <ScalarProperty Name="NumeroPago" ColumnName="NumeroPago" />
+          <ScalarProperty Name="PagoMensual" ColumnName="PagoMensual" />
+          <ScalarProperty Name="SaldoInsoluto" ColumnName="SaldoInsoluto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MMayenBancoInmobiliarioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Amortizacion">
+    <Key>
+      <PropertyRef Name="NumeroPago" />
+    </Key>
+    <Property Name="NumeroPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroCredito" Type="int" />
+    <Property Name="PagoMensual" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="CapitalAmortizado" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="InteresPeriodo" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="SaldoInsoluto" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="NumeroCliente" />
+    </Key>
+    <Property Name="NumeroCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="varchar" MaxLength="30" />
+    <Property Name="ApellidoMaterno" Type="varchar" MaxLength="30" />
+    <Property Name="Nombre" Type="varchar" MaxLength="30" />
+    <Property Name="FechaNacimiento" Type="date" />
+    <Property Name="RFC" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Credito">
+    <Key>
+      <PropertyRef Name="NumeroCredito" />
+    </Key>
+    <Property Name="NumeroCredito" Type="int" Nullable="false" />
+    <Property Name="ImporteCredito" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Plazo" Type="int" />
+    <Property Name="TasaAnual" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="NumeroCliente" Type="int" />
+  </EntityType>
+  <Association Name="FK__Amortizac__Numer__48CFD27E">
+    <End Role="Credito" Type="Self.Credito" Multiplicity="0..1" />
+    <End Role="Amortizacion" Type="Self.Amortizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Credito">
+        <PropertyRef Name="NumeroCredito" />
+      </Principal>
+      <Dependent Role="Amortizacion">
+        <PropertyRef Name="NumeroCredito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Credito__NumeroC__45F365D3">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Credito" Type="Self.Credito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="NumeroCliente" />
+      </Principal>
+      <Dependent Role="Credito">
+        <PropertyRef Name="NumeroCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ClienteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+    <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="varchar" Mode="In" />
+    <Parameter Name="NumeroCredito" Type="int" Mode="In" />
+    <Parameter Name="ImporteCredito" Type="decimal" Mode="In" />
+    <Parameter Name="Plazo" Type="int" Mode="In" />
+    <Parameter Name="TasaAnual" Type="decimal" Mode="In" />
+    <Parameter Name="PagoMensual" Type="decimal" Mode="In" />
+    <Parameter Name="CapitalAmortizado" Type="decimal" Mode="In" />
+    <Parameter Name="InteresPeriodo" Type="decimal" Mode="In" />
+    <Parameter Name="SaldoInsoluto" Type="decimal" Mode="In" />
+    <Parameter Name="RFC" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ClienteDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCliente" Type="int" Mode="In" />
+    <Parameter Name="NumeroCredito" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ClienteGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ClienteGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCredito" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="MMayenBancoInmobiliarioModelStoreContainer">
+    <EntitySet Name="Amortizacion" EntityType="Self.Amortizacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Credito" EntityType="Self.Credito" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Amortizac__Numer__48CFD27E" Association="Self.FK__Amortizac__Numer__48CFD27E">
+      <End Role="Credito" EntitySet="Credito" />
+      <End Role="Amortizacion" EntitySet="Amortizacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Credito__NumeroC__45F365D3" Association="Self.FK__Credito__NumeroC__45F365D3">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Credito" EntitySet="Credito" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

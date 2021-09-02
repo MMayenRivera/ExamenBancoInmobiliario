@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MMayenBancoInmobiliarioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MMayenBancoInmobiliarioEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Amortizacions" EntityType="MMayenBancoInmobiliarioModel.Amortizacion" />
+    <EntitySet Name="Clientes" EntityType="MMayenBancoInmobiliarioModel.Cliente" />
+    <EntitySet Name="Creditoes" EntityType="MMayenBancoInmobiliarioModel.Credito" />
+    <AssociationSet Name="FK__Amortizac__Numer__1FCDBCEB" Association="MMayenBancoInmobiliarioModel.FK__Amortizac__Numer__1FCDBCEB">
+      <End Role="Credito" EntitySet="Creditoes" />
+      <End Role="Amortizacion" EntitySet="Amortizacions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Credito__NumeroC__1A14E395" Association="MMayenBancoInmobiliarioModel.FK__Credito__NumeroC__1A14E395">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Credito" EntitySet="Creditoes" />
+    </AssociationSet>
+    <FunctionImport Name="ClienteAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+      <Parameter Name="NumeroCredito" Mode="In" Type="Int32" />
+      <Parameter Name="ImporteCredito" Mode="In" Type="Decimal" />
+      <Parameter Name="Plazo" Mode="In" Type="Int32" />
+      <Parameter Name="TasaAnual" Mode="In" Type="Decimal" />
+      <Parameter Name="PagoMensual" Mode="In" Type="Decimal" />
+      <Parameter Name="CapitalAmortizado" Mode="In" Type="Decimal" />
+      <Parameter Name="InteresPeriodo" Mode="In" Type="Decimal" />
+      <Parameter Name="SaldoInsoluto" Mode="In" Type="Decimal" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ClienteDelete">
+      <Parameter Name="NumeroCliente" Mode="In" Type="Int32" />
+      <Parameter Name="NumeroCredito" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ClienteGetById" ReturnType="Collection(MMayenBancoInmobiliarioModel.ClienteGetById_Result)">
+      <Parameter Name="NumeroCredito" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ClienteGetAll" ReturnType="Collection(MMayenBancoInmobiliarioModel.ClienteGetAll_Result)" />
+  </EntityContainer>
+  <EntityType Name="Amortizacion">
+    <Key>
+      <PropertyRef Name="NumeroPago" />
+    </Key>
+    <Property Name="NumeroPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroCredito" Type="Int32" />
+    <Property Name="PagoMensual" Type="Int32" />
+    <Property Name="CapitalAmortizado" Type="Int32" />
+    <Property Name="InteresPeriodo" Type="Int32" />
+    <Property Name="SaldoInsoluto" Type="Int32" />
+    <NavigationProperty Name="Credito" Relationship="MMayenBancoInmobiliarioModel.FK__Amortizac__Numer__1FCDBCEB" FromRole="Amortizacion" ToRole="Credito" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="NumeroCliente" />
+    </Key>
+    <Property Name="NumeroCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Creditoes" Relationship="MMayenBancoInmobiliarioModel.FK__Credito__NumeroC__1A14E395" FromRole="Cliente" ToRole="Credito" />
+    <Property Name="RFC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Credito">
+    <Key>
+      <PropertyRef Name="NumeroCredito" />
+    </Key>
+    <Property Name="NumeroCredito" Type="Int32" Nullable="false" />
+    <Property Name="ImporteCredito" Type="Int32" />
+    <Property Name="Plazo" Type="Int32" />
+    <Property Name="TasaAnual" Type="Int32" />
+    <Property Name="NumeroCliente" Type="Int32" />
+    <NavigationProperty Name="Amortizacions" Relationship="MMayenBancoInmobiliarioModel.FK__Amortizac__Numer__1FCDBCEB" FromRole="Credito" ToRole="Amortizacion" />
+    <NavigationProperty Name="Cliente" Relationship="MMayenBancoInmobiliarioModel.FK__Credito__NumeroC__1A14E395" FromRole="Credito" ToRole="Cliente" />
+  </EntityType>
+  <Association Name="FK__Amortizac__Numer__1FCDBCEB">
+    <End Type="MMayenBancoInmobiliarioModel.Credito" Role="Credito" Multiplicity="0..1" />
+    <End Type="MMayenBancoInmobiliarioModel.Amortizacion" Role="Amortizacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Credito">
+        <PropertyRef Name="NumeroCredito" />
+      </Principal>
+      <Dependent Role="Amortizacion">
+        <PropertyRef Name="NumeroCredito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Credito__NumeroC__1A14E395">
+    <End Type="MMayenBancoInmobiliarioModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+    <End Type="MMayenBancoInmobiliarioModel.Credito" Role="Credito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="NumeroCliente" />
+      </Principal>
+      <Dependent Role="Credito">
+        <PropertyRef Name="NumeroCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="ClienteGetById_Result">
+    <Property Type="Int32" Name="NumeroPago" Nullable="false" />
+    <Property Type="Int32" Name="Numero_Credito" Nullable="true" />
+    <Property Type="Decimal" Name="PagoMensual" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="CapitalAmortizado" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="InteresPeriodo" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="SaldoInsoluto" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="ImporteCredito" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="Plazo" Nullable="true" />
+    <Property Type="Decimal" Name="TasaAnual" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="NumeroCliente" Nullable="false" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="ClienteGetAll_Result">
+    <Property Type="Int32" Name="NumeroCliente" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="NumeroCredito" Nullable="true" />
+    <Property Type="Decimal" Name="CapitalAmortizado" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="InteresPeriodo" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="NumeroPago" Nullable="false" />
+    <Property Type="Decimal" Name="PagoMensual" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="SaldoInsoluto" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+</Schema>

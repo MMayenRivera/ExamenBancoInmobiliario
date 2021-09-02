@@ -1,0 +1,59 @@
+﻿@model BL.Amortizacion
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Clientes</h2>
+
+<div class="container">
+    <div class="row">
+        <div style="float:right; margin-bottom:1rem;">
+            @Html.ActionLink("+", "Form", "Cliente", htmlAttributes: new { @class = "btn btn-success btn-lg" })
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td class="hidden">NumeroCliente</td>
+                    <td style="font-weight:bold">Nombre</td>
+                    <td style="font-weight:bold">Apellido Paterno</td>
+                    <td style="font-weight:bold">Apellido Materno</td>
+                    <td style="font-weight:bold">Fecha Nacimiento</td>
+                    <td style="font-weight:bold">RFC</td>
+                    <td style="font-weight:bold">Numero Credito</td>
+                    <td style="font-weight:bold">Capital Amortizado</td>
+                    <td style="font-weight:bold">Interes por Periodo</td>
+                    <td style="font-weight:bold">Numero Pago</td>
+                    <td style="font-weight:bold">Pago Mensual</td>
+                    <td style="font-weight:bold">Saldo Insoluto</td>
+                    <td style="font-weight:bold">Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BL.Amortizacion amortizacion in Model.Amortizaciones)
+                {
+                    <tr>
+                        <td class="hidden">@amortizacion.Credito.Cliente.NumeroCliente</td>
+                        <td class="text-center">@amortizacion.Credito.Cliente.Nombre</td>
+                        <td class="text-center">@amortizacion.Credito.Cliente.ApellidoPaterno</td>
+                        <td class="text-center">@amortizacion.Credito.Cliente.ApellidoMaterno</td>
+                        <td class="text-center">@amortizacion.Credito.Cliente.FechaNacimiento</td>
+                        <td class="text-center">@amortizacion.Credito.Cliente.RFC</td>
+                        <td class="text-center">@amortizacion.Credito.NumeroCredito</td>
+                        <td class="text-center">@amortizacion.CapitalAmortizado</td>
+                        <td class="text-center">@amortizacion.InteresPeriodo</td>
+                        <td class="text-center">@amortizacion.NumeroPago</td>
+                        <td class="text-center">@amortizacion.PagoMensual</td>
+                        <td class="text-center">@amortizacion.SaldoInsoluto</td>
+
+
+                        <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Cliente", new { NumeroCliente = amortizacion.Credito.Cliente.NumeroCliente, NumeroCredito = amortizacion.Credito.NumeroCredito })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
