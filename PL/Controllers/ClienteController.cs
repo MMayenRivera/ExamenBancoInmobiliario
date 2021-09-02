@@ -42,8 +42,10 @@ namespace PL.Controllers
         {
             decimal TasaMensual = amortizacion.Credito.TasaAnual / 12;
             //Pago Mensual
-         //   amortizacion.PagoMensual = (amortizacion.Credito.ImporteCredito * TasaMensual) /  Math.Pow((1 - (1 + TasaMensual),-amortizacion.Credito.Plazo));
-            amortizacion.PagoMensual = 2561;
+            double TasaMensualAux = double.Parse(amortizacion.Credito.ImporteCredito.ToString()) * double.Parse(TasaMensual.ToString());
+            double TasaMensualAux1=1 + double.Parse(TasaMensual.ToString());
+            double TasaMensualAux2 = (1 - Math.Pow(TasaMensualAux1, -amortizacion.Credito.Plazo));
+            amortizacion.PagoMensual = decimal.Parse(TasaMensualAux.ToString()) / decimal.Parse(TasaMensualAux2.ToString());
             //Interes del Periodo
             amortizacion.InteresPeriodo = amortizacion.Credito.ImporteCredito - TasaMensual;
             //CapitalAmortizado
